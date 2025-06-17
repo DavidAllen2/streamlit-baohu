@@ -1,0 +1,25 @@
+name: Auto Click Streamlit
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # 每 6 小时自动运行
+  workflow_dispatch:       # 支持手动手动运行
+
+jobs:
+  clicker:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install Puppeteer
+      run: npm install puppeteer
+
+    - name: Run click script
+      run: node click.js
