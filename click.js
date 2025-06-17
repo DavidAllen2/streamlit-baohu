@@ -20,7 +20,7 @@ const puppeteer = require("puppeteer");
 
     const clicked = await page.evaluate(() => {
       const buttons = Array.from(document.querySelectorAll("button, [role='button']"));
-      const target = buttons.find(btn => btn.innerText.includes("🚀 启动部署"));
+      const target = buttons.find(btn => btn.innerText.includes("启动部署"));
       if (target) {
         target.click();
         return true;
