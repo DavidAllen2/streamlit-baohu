@@ -3,7 +3,7 @@ name: Auto Click Streamlit
 on:
   schedule:
     - cron: '0 */6 * * *'  # 每 6 小时自动运行
-  workflow_dispatch:
+  workflow_dispatch:       # 支持手动触发
 
 jobs:
   clicker:
@@ -26,7 +26,7 @@ jobs:
 
     - name: Commit click log
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -38,8 +38,7 @@ jobs:
             echo "⚠️ 没有日志变更，跳过提交"
           else
             git commit -m "📄 更新日志 $(date '+%Y-%m-%d %H:%M:%S')"
-            git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
+            git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
           fi
         else
           echo "⚠️ 日志文件不存在，未提交"
-        fi
